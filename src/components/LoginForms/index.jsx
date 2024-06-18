@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import storageManagerApi from "../../services/storageManagerApi";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const Title = styled.h1`
 `;
 
 const Input = styled.input`
-  width: calc(100% - 20px);
+  width: 100%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #ccc;
@@ -62,6 +63,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -74,8 +77,9 @@ const Login = () => {
           },
         }
       );
-
       localStorage.setItem("authToken", data.token);
+      navigate("/home");
+
       window.location.reload();
     } catch (error) {
       setError("Usuário ou senha inválidos");

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const FormContainer = styled.div`
   max-width: 500px;
@@ -36,6 +37,19 @@ const Input = styled.input`
   }
 `;
 
+const Select = styled.select`
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  &:focus {
+    outline: none;
+    border-color: #f8964b;
+  }
+`;
+
 const Button = styled.button`
   width: 100%;
   padding: 10px;
@@ -50,23 +64,27 @@ const Button = styled.button`
   }
 `;
 
-const EditItemForm = ({ title, fields, initialData, onSubmit }) => {
-  const [formData, setFormData] = useState(initialData);
+const EditItemForm = ({ title, fields, initialData, onSubmit, basePath }) => {
+  const [formData, setFormData] = useState(initialData || {});
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setFormData(initialData);
+    setFormData(initialData || {});
   }, [initialData]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(formData);
+    navigate(`${basePath}`);
   };
 
   return (
@@ -76,14 +94,31 @@ const EditItemForm = ({ title, fields, initialData, onSubmit }) => {
         {fields.map((field) => (
           <div key={field.name}>
             <Label htmlFor={field.name}>{field.label}</Label>
-            <Input
-              type={field.type}
-              id={field.name}
-              name={field.name}
-              value={formData[field.name]}
-              onChange={handleChange}
-              required={field.required}
-            />
+            {field.type === "select" ? (
+              <Select
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              >
+                <option value="">Selecione</option>
+                {field.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
+            ) : (
+              <Input
+                type={field.type}
+                id={field.name}
+                name={field.name}
+                value={formData[field.name] || ""}
+                onChange={handleChange}
+                required={field.required}
+              />
+            )}
           </div>
         ))}
         <Button type="submit">Salvar</Button>

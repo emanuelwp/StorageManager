@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import getAllItems from "../../hooks/getAllItems";
 
 const produtosHeader = [
+  { name: null, field: "id" },
   { name: "Nome", field: "name" },
   { name: "Categoria", field: "categoryId" },
 ];
@@ -39,6 +40,7 @@ function Produtos() {
           headers={produtosHeader}
           data={produtosData}
           basePath="/produtos"
+          deleteURL="/products"
         />
       </Content>
     </>

@@ -13,7 +13,12 @@ import storageManagerApi from "./services/storageManagerApi";
 import NovaCategoria from "./pages/Categorias/NovaCategoria";
 import NovoFornecedor from "./pages/Fornecedores/NovoFornecedor";
 import NovoProduto from "./pages/Produtos/NovoProduto";
+import NovaEntrada from "./pages/Movimentações/Entrada/NovaEntrada";
+import NovaTransferencia from "./pages/Movimentações/Transferencia/NovaTransferencia";
+import NovaSaida from "./pages/Movimentações/Saida/NovaSaida";
 import EditarCategoria from "./pages/Categorias/EditarCategoria";
+import EditarFornecedor from "./pages/Fornecedores/EditarFonecedor";
+import EditarProduto from "./pages/Produtos/EditarProduto";
 
 const isAuthenticated = async () => {
   const token = localStorage.getItem("authToken");
@@ -52,6 +57,10 @@ const App = (await isAuthenticated())
         element: <NovoProduto />,
       },
       {
+        path: "/produtos/edit/:id",
+        element: <EditarProduto />,
+      },
+      {
         path: "/categorias",
         element: <Categorias />,
       },
@@ -72,16 +81,32 @@ const App = (await isAuthenticated())
         element: <NovoFornecedor />,
       },
       {
+        path: "/fornecedores/edit/:id",
+        element: <EditarFornecedor />,
+      },
+      {
         path: "/movimentacoes/entrada",
         element: <Entrada />,
+      },
+      {
+        path: "/movimentacoes/entrada/new",
+        element: <NovaEntrada />,
       },
       {
         path: "/movimentacoes/saida",
         element: <Saida />,
       },
       {
+        path: "/movimentacoes/saida/new",
+        element: <NovaSaida />,
+      },
+      {
         path: "/movimentacoes/transferencia",
         element: <Transferencia />,
+      },
+      {
+        path: "/movimentacoes/transferencia/new",
+        element: <NovaTransferencia />,
       },
       {
         path: "/relatorios",

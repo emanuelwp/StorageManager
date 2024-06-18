@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import storageManagerApi from "../../services/storageManagerApi";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const TableContainer = styled.div`
   width: 100%;
@@ -88,17 +90,50 @@ const CreateButton = styled(ActionButton)`
   }
 `;
 
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const PaginationButton = styled.button`
+  padding: 8px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  margin: 0 4px;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  &:disabled {
+    background-color: #d0d0d0;
+    cursor: not-allowed;
+  }
+`;
+
+const ITEMS_PER_PAGE = 10;
+
 const Table = ({ headers, data, basePath, deleteURL }) => {
   const [filter, setFilter] = useState("");
-  const navegar = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
-    // Implementar lógica de filtragem conforme necessário
+    setCurrentPage(1); // Reset to first page on filter change
   };
 
   const handleEdit = (item) => {
-    navegar(`${basePath}/edit/${item.id}`);
+    navigate(`${basePath}/edit/${item.id}`, { state: { item } });
   };
 
   const handleDelete = (id) => {
@@ -118,8 +153,17 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
   };
 
   const handleCreateNew = () => {
-    navegar(`${basePath}/new`);
+    navigate(`${basePath}/new`);
   };
+
+  const filteredData = data.filter((item) =>
+    item.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const paginatedData = filteredData.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -145,7 +189,7 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
+            {paginatedData.map((item, index) => (
               <TableRow key={index}>
                 {headers
                   .filter((item) => item.name)
@@ -165,6 +209,25 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
           </tbody>
         </StyledTable>
       </TableContainer>
+      <PaginationContainer>
+        <PaginationButton
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </PaginationButton>
+        <span>
+          Página {currentPage} de {totalPages}
+        </span>
+        <PaginationButton
+          onClick={() =>
+            setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+          }
+          disabled={currentPage === totalPages}
+        >
+          <FontAwesomeIcon icon={faArrowRight} />
+        </PaginationButton>
+      </PaginationContainer>
     </div>
   );
 };

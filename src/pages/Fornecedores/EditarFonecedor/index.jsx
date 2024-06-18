@@ -1,8 +1,9 @@
 import React from "react";
-import NewItemForm from "../../../components/NewItemForm";
+import { useLocation } from "react-router-dom";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
 import Content from "../../../components/Content";
+import EditItemForm from "../../../components/EditItemForm";
 import storageManagerApi from "../../../services/storageManagerApi";
 
 const supplierFields = [
@@ -12,30 +13,33 @@ const supplierFields = [
   { name: "cep", label: "CEP", type: "text", required: false },
 ];
 
-const NovoFornecedor = () => {
-  const handleSupplierSubmit = async (data) => {
-    try {
-      const token = localStorage.getItem("authToken");
-      await storageManagerApi.post("suppliers", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (error) {
-      console.error("Erro ao buscar dados da API:", error);
-    }
-  };
+const handleSubmit = async (data) => {
+  const token = localStorage.getItem("authToken");
+  try {
+    const response = await storageManagerApi.put(`suppliers/${data.id}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    alert.error("Erro ao enviar dados:", error);
+  }
+};
+
+const EditarFornecedor = () => {
+  const location = useLocation();
+  const { item } = location.state;
 
   return (
     <>
       <Header />
       <Sidebar />
       <Content>
-        <NewItemForm
-          title="Criar novo fornecedor"
+        <EditItemForm
+          title="Editar fornecedor"
           fields={supplierFields}
-          onSubmit={handleSupplierSubmit}
+          initialData={item}
+          onSubmit={handleSubmit}
           basePath={"/fornecedores"}
         />
       </Content>
@@ -43,4 +47,4 @@ const NovoFornecedor = () => {
   );
 };
 
-export default NovoFornecedor;
+export default EditarFornecedor;

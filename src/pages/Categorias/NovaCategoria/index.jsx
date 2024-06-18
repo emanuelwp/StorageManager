@@ -34,6 +34,7 @@ const NovaCategoria = () => {
           title="Criar nova categoria"
           fields={categoryFields}
           onSubmit={handleCategorySubmit}
+          basePath={"/categorias"}
         />
       </Content>
     </>
