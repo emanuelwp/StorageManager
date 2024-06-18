@@ -19,7 +19,7 @@ function Transferencia() {
         <Table
           headers={fornecedoresHeaders}
           data={fornecedoresData}
-          basePath="/transferencia"
+          basePath="/movimentacoes/transferencia"
         />
       </Content>
     </>

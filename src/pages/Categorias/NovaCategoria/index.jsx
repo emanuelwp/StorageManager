@@ -1,4 +1,3 @@
-import React from "react";
 import NewItemForm from "../../../components/NewItemForm";
 import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";

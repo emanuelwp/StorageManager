@@ -157,7 +157,7 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
   };
 
   const filteredData = data.filter((item) =>
-    item.name.toLowerCase().includes(filter.toLowerCase())
+    item?.name?.toLowerCase().includes(filter.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);

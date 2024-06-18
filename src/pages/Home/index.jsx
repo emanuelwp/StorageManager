@@ -9,10 +9,7 @@ function Incio() {
       <Sidebar />
       <Content>
         <h1>Home</h1>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-          convallis libero vitae lorem dictum, sed consequat dui malesuada.
-        </p>
+        <p>TELA DE INÍCIO</p>
       </Content>
     </>
   );

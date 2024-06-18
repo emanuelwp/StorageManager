@@ -66,7 +66,6 @@ const Button = styled.button`
 
 const EditItemForm = ({ title, fields, initialData, onSubmit, basePath }) => {
   const [formData, setFormData] = useState(initialData || {});
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -79,6 +78,9 @@ const EditItemForm = ({ title, fields, initialData, onSubmit, basePath }) => {
       ...formData,
       [name]: value,
     });
+
+    // console.log(formData);
+    console.log(initialData);
   };
 
   const handleSubmit = (e) => {

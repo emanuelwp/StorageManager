@@ -19,7 +19,7 @@ function Saida() {
         <Table
           headers={fornecedoresHeaders}
           data={fornecedoresData}
-          basePath="/saida"
+          basePath="/movimentacoes/saida"
         />
       </Content>
     </>
