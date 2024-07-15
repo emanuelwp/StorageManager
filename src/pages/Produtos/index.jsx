@@ -8,7 +8,7 @@ import getAllItems from "../../hooks/getAllItems";
 const produtosHeader = [
   { name: null, field: "id" },
   { name: "Nome", field: "name" },
-  { name: "Categoria", field: "categoryId" },
+  { name: "Categoria", field: "category.name" },
 ];
 
 function Produtos() {

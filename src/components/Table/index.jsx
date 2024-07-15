@@ -165,6 +165,10 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
   const endIndex = startIndex + ITEMS_PER_PAGE;
   const paginatedData = filteredData.slice(startIndex, endIndex);
 
+  const getFieldValue = (item, field) => {
+    return field.split(".").reduce((acc, part) => acc && acc[part], item);
+  };
+
   return (
     <div>
       <FilterContainer>
@@ -194,7 +198,9 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
                 {headers
                   .filter((item) => item.name)
                   .map((header, idx) => (
-                    <TableData key={idx}>{item[header.field]}</TableData>
+                    <TableData key={idx}>
+                      {getFieldValue(item, header.field)}
+                    </TableData>
                   ))}
                 <TableActionsToRight>
                   <ActionButton onClick={() => handleEdit(item)}>
