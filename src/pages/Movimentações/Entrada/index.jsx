@@ -3,12 +3,12 @@ import Header from "../../../components/Header";
 import Sidebar from "../../../components/Sidebar";
 import Table from "../../../components/Table";
 
-const fornecedoresHeaders = ["Nome", "Email"];
-const fornecedoresData = [
-  { Código: "001", Nome: "Fornecedor A", Email: "fornecedorA@example.com" },
-  { Código: "002", Nome: "Fornecedor B", Email: "fornecedorB@example.com" },
-  { Código: "003", Nome: "Fornecedor C", Email: "fornecedorC@example.com" },
+const entradasHeader = [
+  { name: null, field: "id" },
+  { name: "Nome", field: "name" },
+  { name: "Descrição", field: "description" },
 ];
+const entradasData = [];
 function Entrada() {
   return (
     <>
@@ -17,9 +17,9 @@ function Entrada() {
       <Content>
         <h1>Entradas</h1>
         <Table
-          headers={fornecedoresHeaders}
-          data={fornecedoresData}
-          basePath="/entrada"
+          headers={entradasHeader}
+          data={entradasData}
+          basePath="/movimentacoes/entrada"
         />
       </Content>
     </>

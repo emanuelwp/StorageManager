@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import EditItemForm from "../../../components/EditItemForm";
 import Header from "../../../components/Header";
@@ -9,30 +9,30 @@ import storageManagerApi from "../../../services/storageManagerApi";
 const productFields = [
   { name: "name", label: "Nome", type: "text", required: true },
   {
-    name: "stockQuantity",
+    name: "stock_quantity",
     label: "Quantidade no estoque",
     type: "number",
     required: false,
   },
   {
-    name: "minStockQuantity",
+    name: "min_stock_quantity",
     label: "Quantidade Mínima no estoque",
     type: "number",
     required: true,
   },
   {
-    name: "showcaseQuantity",
+    name: "showcase_quantity",
     label: "Quantidade na vitrine",
     type: "number",
     required: false,
   },
   {
-    name: "minShowcaseQuantity",
+    name: "min_showcase_quantity",
     label: "Quantidade Mínima na vitrine",
     type: "number",
     required: true,
   },
-  { name: "categoryId", label: "Categoria", type: "select", required: false },
+  { name: "category_id", label: "Categoria", type: "select", required: false },
 ];
 
 const EditarProduto = () => {
@@ -65,7 +65,7 @@ const EditarProduto = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setInitialData(response.data);
+        setInitialData(response.data[0]);
       } catch (error) {
         console.error("Erro ao buscar produto da API:", error);
       }
@@ -99,7 +99,7 @@ const EditarProduto = () => {
   };
 
   const updatedFields = productFields.map((field) => {
-    if (field.name === "categoryId") {
+    if (field.name === "category_id") {
       return {
         ...field,
         options: categories.map((category) => ({
