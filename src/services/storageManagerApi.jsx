@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const storageManagerApi = axios.create({
-  baseURL: "http://localhost:3333/",
+  baseURL: "https://friendly-funicular-jxjw7xv7wr3576j-3333.app.github.dev/",
 });
 
 export default storageManagerApi;

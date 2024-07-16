@@ -1,18 +1,19 @@
-import Sidebar from "../../components/Sidebar";
+import React from "react";
 import Header from "../../components/Header";
+import Sidebar from "../../components/Sidebar";
 import Content from "../../components/Content";
+import Dashboard from "../../components/Dashboard";
 
-function Incio() {
+function Inicio() {
   return (
     <>
       <Header />
       <Sidebar />
       <Content>
-        <h1>Home</h1>
-        <p>TELA DE INÍCIO</p>
+        <Dashboard />
       </Content>
     </>
   );
 }
 
-export default Incio;
+export default Inicio;
