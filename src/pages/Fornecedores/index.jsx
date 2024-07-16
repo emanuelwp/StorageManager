@@ -9,6 +9,8 @@ const fornecedoresHeaders = [
   { name: null, field: "id" },
   { name: "Nome", field: "name" },
   { name: "Email", field: "email" },
+  { name: "CNPJ", field: "cnpj" },
+  { name: "CEP", field: "cep" },
 ];
 
 function Fornecedores() {

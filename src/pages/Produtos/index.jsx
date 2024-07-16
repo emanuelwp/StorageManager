@@ -9,6 +9,9 @@ const produtosHeader = [
   { name: null, field: "id" },
   { name: "Nome", field: "name" },
   { name: "Categoria", field: "category.name" },
+  { name: "Quantidade total", field: "quantity" },
+  { name: "Quantidade estoque", field: "stock_quantity" },
+  { name: "Quantidade vitrine", field: "showcase_quantity" },
 ];
 
 function Produtos() {

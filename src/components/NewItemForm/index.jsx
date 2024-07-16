@@ -102,7 +102,7 @@ const NewItemForm = ({ title, fields, onSubmit, basePath }) => {
                 onChange={handleChange}
                 required={field.required}
               >
-                <option value="">Selecione uma categoria</option>
+                <option value="">Nenhum</option>
                 {field.options &&
                   field.options.map((option) => (
                     <option key={option.value} value={option.value}>

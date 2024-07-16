@@ -156,9 +156,17 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
     navigate(`${basePath}/new`);
   };
 
-  const filteredData = data.filter((item) =>
-    item?.name?.toLowerCase().includes(filter.toLowerCase())
-  );
+  let filteredData;
+
+  if (basePath.includes("movimentacoes")) {
+    filteredData = data.filter((item) =>
+      item?.product?.name?.toLowerCase().includes(filter.toLowerCase())
+    );
+  } else {
+    filteredData = data.filter((item) =>
+      item?.name?.toLowerCase().includes(filter.toLowerCase())
+    );
+  }
 
   const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -189,7 +197,9 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
                 .map((header, index) => (
                   <TableHeader key={index}>{header.name}</TableHeader>
                 ))}
-              <TableHeader></TableHeader>
+              {!basePath.includes("movimentacoes") && (
+                <TableHeader></TableHeader>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -202,14 +212,16 @@ const Table = ({ headers, data, basePath, deleteURL }) => {
                       {getFieldValue(item, header.field)}
                     </TableData>
                   ))}
-                <TableActionsToRight>
-                  <ActionButton onClick={() => handleEdit(item)}>
-                    Editar
-                  </ActionButton>
-                  <DeleteButton onClick={() => handleDelete(item.id)}>
-                    Deletar
-                  </DeleteButton>
-                </TableActionsToRight>
+                {!basePath.includes("movimentacoes") && (
+                  <TableActionsToRight>
+                    <ActionButton onClick={() => handleEdit(item)}>
+                      Editar
+                    </ActionButton>
+                    <DeleteButton onClick={() => handleDelete(item.id)}>
+                      Deletar
+                    </DeleteButton>
+                  </TableActionsToRight>
+                )}
               </TableRow>
             ))}
           </tbody>

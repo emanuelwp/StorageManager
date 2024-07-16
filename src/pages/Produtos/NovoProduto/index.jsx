@@ -69,7 +69,7 @@ const NovoProduto = () => {
     }
   };
 
-  const updatedFields = productFields.map((field) => {
+  const updatedProductFields = productFields.map((field) => {
     if (field.name === "categoryId") {
       return {
         ...field,
@@ -89,7 +89,7 @@ const NovoProduto = () => {
       <Content>
         <NewItemForm
           title="Criar novo produto"
-          fields={updatedFields}
+          fields={updatedProductFields}
           onSubmit={handleProductSubmit}
           basePath={"/produtos"}
         />
